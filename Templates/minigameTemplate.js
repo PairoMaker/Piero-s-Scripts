@@ -1,6 +1,3 @@
-//Template writing by Piero
-//Can be used for small round base minigames
-
 const game = {};
 game.gameState = 0 //0 waiting, 1 intermission, 2 round
 game.gameStates = [{"waiting": 0, "intermission": 1, "round": 2}]
@@ -21,6 +18,7 @@ function startRound() { //Code for when the game starts
     Game.centerPrintAll(`The game has started!`, 3)
 }
 function endRound() { //Code for when the game ends
+    game.gameState = 1
     Game.centerPrintAll(`The game has ended!`, 3)
 }
 
@@ -55,8 +53,9 @@ setInterval(() =>{
             Game.bottomPrintAll(`The game has ${game.roundTime} seconds left!`, 100000)
         }
         else{
-            game.gameState = 1
             endRound()
+            game.gameState = 1
+            game.roundTime = game.timeConfig.intermission
         }
     }
 
