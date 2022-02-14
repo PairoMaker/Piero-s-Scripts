@@ -1,10 +1,13 @@
+//Template writing by Piero
+//Can be used for small round base minigames
+
 const game = {};
 game.gameState = 0 //0 waiting, 1 intermission, 2 round
 game.gameStates = [{"waiting": 0, "intermission": 1, "round": 2}]
 game.roundTime = 30
 game.timeConfig = {
     "intermission": 30,
-    "roundTime": 120,
+    "roundTime": 30,
 }
 
 
@@ -53,7 +56,7 @@ setInterval(() =>{
         }
         else{
             game.gameState = 1
-            roundEnd()
+            endRound()
         }
     }
 
