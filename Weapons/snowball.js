@@ -1,3 +1,5 @@
+//snowBall writing by Piero\\
+
 let snowBall = new Tool("Snowball")
 snowBall.model = 224753
 function giveSnowball(player){
