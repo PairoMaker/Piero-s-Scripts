@@ -76,6 +76,18 @@ Game.on("playerJoin", (player) =>{
     player.on("initialSpawn", () => {
         player.equipTool(sword)
     })
+    player.on("died", () => {
+        if (effectsEnabled == false || deathExplosion == false) return // If effects or explosions are disabled then dont run anything
+        deathcolor = 0
+        if (redBlood == false) {
+            deathcolor = randomColor()
+        } else {
+            deathcolor = "#ff0000"
+        }
+        for (i = 0; i < 5; i++) { //repeat 5 times for 5 blocks
+            playerexplode(p,deathcolor)
+        }
+    })
 });
 //If the boss leaves mid-game
 Game.on("playerLeave", (player) => {
@@ -217,22 +229,6 @@ function playerexplode(player,color) {
         }
     }, 35)
 }
-
-Game.on('playerJoin', (p) => {
-    p.on("died", () => {
-        if (effectsEnabled == false || deathExplosion == false) return // If effects or explosions are disabled then dont run anything
-        deathcolor = 0
-        if (redBlood == false) {
-            deathcolor = randomColor()
-        } else {
-            deathcolor = "#ff0000"
-        }
-        for (i = 0; i < 5; i++) { //repeat 5 times for 5 blocks
-            playerexplode(p,deathcolor)
-        }
-    })
-})
-
 function randomColor() {
     return '#' + ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6)
 }
