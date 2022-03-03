@@ -85,7 +85,7 @@ Game.on("playerJoin", (player) =>{
             deathcolor = "#ff0000"
         }
         for (i = 0; i < 5; i++) { //repeat 5 times for 5 blocks
-            playerexplode(p,deathcolor)
+            playerexplode(player,deathcolor)
         }
     })
 });
