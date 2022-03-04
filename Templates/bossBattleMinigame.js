@@ -5,8 +5,8 @@ const knightOutfit = new Outfit()
     .torso("#bdb4b0")
     .head("#f3b700")
     .hat1(1467)
-    .hat2()
-    .hat3()
+    .hat2(1)
+    .hat3(1)
     .face(317930)
     .tshirt(318731)
     .shirt()
@@ -49,6 +49,12 @@ function randomBoss(){
     if(bossPlayer){
         bossPlayer.role = 1
         Game.centerPrintAll(`The monster ${bossPlayer.username} has rising!`, 3)
+        bossPlayer.setOutfit(bossOutfit);
+        bossPlayer.setScale(new Vector3(2,2,2));
+        bossPlayer.unequipTool(sword) //weird Node Hill glitch
+        bossPlayer.destroyTool(sword)
+        bossPlayer.equipTool(hammer)
+        bossPlayer.setHealth(250)
     }
 };
 function endRound(){
@@ -95,6 +101,10 @@ Game.on("playerLeave", (player) => {
         Game.centerPrintAll(`The monster ${player.username} disappear unoticed!`, 5);
         endRound()
     }
+    if(Game.players.length < numberNeeded){
+        miniGame.gameState = 0
+        endRound()
+    }
 });
 
 //Main interval\\
@@ -123,12 +133,6 @@ setInterval(() => {
     } else if (miniGame.gameState === 2){
         for(let player of Game.players){
             if(player.role === 1){
-                player.setOutfit(bossOutfit);
-                player.setScale(new Vector3(2,2,2));
-                player.unequipTool(sword) //weird Node Hill glitch
-                player.destroyTool(sword)
-                player.equipTool(hammer)
-                player.setHealth(250)
                 if(player.alive){
                     Game.topPrintAll(`| Health : ${player.health} |`, 100000)
                 }
@@ -229,6 +233,7 @@ function playerexplode(player,color) {
         }
     }, 35)
 }
+
 function randomColor() {
     return '#' + ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6)
 }
